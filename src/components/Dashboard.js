@@ -38,7 +38,7 @@ const Dashboard = () => {
                 </li>
               </ul>
             </div>
-            {/* <button className="btnPrimary">Connect Wallet</button> */}
+            
           </nav>
         </div>
       </div>
