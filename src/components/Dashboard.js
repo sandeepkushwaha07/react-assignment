@@ -6,9 +6,9 @@ const Dashboard = () => {
   return (
     <>
       <div className="mainBG" />
-      <div className="gr1"></div>
+      {/* <div className="gr1"></div> */}
       <div className="gr2"></div>
-      <div className="gr3"></div>
+      {/* <div className="gr3"></div> */}
       <div className="container-fluid" style={{ zIndex: 99 }}>
         <div className="header">
           <nav className="navbar navbar-expand-lg navbar-light" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>

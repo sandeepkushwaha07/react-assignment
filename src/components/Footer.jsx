@@ -10,14 +10,14 @@ const Footer = () => {
         
         <hr/>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-lg-6">
             <p id="footerHeading">&copy; 2024 Your Sandeep Movies Card.</p>
           </div>
-          <div className="col-md-6">
+          <div className="col-lg-6">
             <div className="icon">
-              <FontAwesomeIcon icon={faFacebook} />
-              <FontAwesomeIcon icon={faWhatsapp} />
-              <FontAwesomeIcon icon={faInstagram} />
+             <a href='https://www.facebook.com/profile.php?id=100010991323090'><FontAwesomeIcon icon={faFacebook} /></a> 
+             <FontAwesomeIcon icon={faWhatsapp} />
+             <a href='https://www.instagram.com/sandeep_02ku?utm_source=qr&igsh=MWNvOHhzcHdrNTdtdA=='> <FontAwesomeIcon icon={faInstagram} /></a>
             </div>
           </div>
         </div>

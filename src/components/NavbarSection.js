@@ -7,8 +7,8 @@ const NavbarSection = () => {
     <>
    {/* <Dashboard></Dashboard> */}
     <div className="row">
-    <div className="gr1"></div>
-      <div className="gr2"></div>
+    {/* <div className="gr1"></div> */}
+      {/* <div className="gr2"></div> */}
       <div className="gr3"></div>
       <div className="col-md-6">
         <div className="flex-row">

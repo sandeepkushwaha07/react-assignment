@@ -39,14 +39,15 @@ a.navbar-brand.gradientText {
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 260px;
+  height: 96%;
   color: #000;
+  margin-bottom: 30px;
 }
-.movieName img {
+/* .movieName img {
   width: 350px;
   height: auto;
   margin-bottom: 10px;
-}
+} */
 .movieName h2 {
   margin-top: 45px;
 }
@@ -63,6 +64,13 @@ a.navbar-brand.gradientText {
   font-size: 20px;
 
   margin-bottom: 17px;
+}
+
+
+.thumbnail-image {
+  width: 100px; /* Set a fixed width for the thumbnail */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Crop the image to fit the thumbnail without stretching */
 }
 
 /* dashboard */
@@ -94,6 +102,36 @@ a.navbar-brand.gradientText {
   height: 100%;
   padding: var(--border-width);
   border-radius: var(--border-radius);
+  /* background-image: conic-gradient(
+#488cfb,
+#29dbbc,
+#ddf505,
+#ff9f0e,
+#e440bb,
+#655adc,
+#488cfb
+); */
+  mask-image: var(--m-i), var(--m-i);
+  mask-origin: var(--m-o);
+  mask-clip: var(--m-o);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  filter: hue-rotate(0);
+  animation: hue linear 500ms infinite;
+  animation-play-state: running;
+  border: 1px solid #ffff;
+}
+/* .btnPrimary::after {
+  --m-i: linear-gradient(#000, #000);
+  --m-o: content-box, padding-box;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: var(--border-width);
+  border-radius: var(--border-radius);
   background-image: conic-gradient(
   #488cfb,
   #29dbbc,
@@ -111,7 +149,7 @@ a.navbar-brand.gradientText {
   filter: hue-rotate(0);
   animation: hue linear 500ms infinite;
   animation-play-state: running;
-}
+} */
 .searchButton {
   /* float: right; */
   width: 100%;
@@ -151,9 +189,11 @@ height: 218px;
   width: 100%;
   height: 96%;
   padding: 30px;
-  background: #a58a8a;
+  background: #553e6c;
   border-radius: 20px;
   /* box-shadow: 3px 2px 0px -1px; */
+  margin-top: 81px;
+  border: 1px solid;
 }
 .productItem12 img {
   width: 123px;
@@ -704,18 +744,13 @@ footer.footer {
   height: 100px;
 
 }
-p#footerHeading {
-  margin-top: 43px;
-}
+
 
 .newsHeading {
   text-align: center;
 }
 
-.icon {
-  width: 100%;
-  float: right !important;
-}
+
 
 @media only screen and (min-width: 320px) and (max-width: 750px) {
   .searchButton input {
@@ -797,4 +832,27 @@ section.mainSection {
   float: right;
   /* margin-top: -42px; */
   display: none;
+}
+
+button.btn.btn-danger {
+  float: right;
+}
+.icon svg {
+  font-size: 22px;
+  margin-left: 23px;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.icon {
+  width: 100%;
+  /* float: right !important; */
+  text-align: center;
+}
+
+.icon a {
+  color: #fff;
+}
+.icon a:hover {
+  color: var(--green);
 }

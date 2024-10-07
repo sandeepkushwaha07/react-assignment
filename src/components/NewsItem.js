@@ -35,6 +35,12 @@ const NewsItem = () => {
     setNewMovie({ name: "", basePrice: "", featuredImage: "", thumbnailImage: "" });
   };
 
+  const handleDeleteMovie = (id) => {
+    const updatedData = data.filter((news) => news.id !== id); // Change 'movie' to 'news'
+    setData(updatedData);
+    localStorage.setItem("movies", JSON.stringify(updatedData));
+  };
+
   return (
     <>
       <div className="searchButton">
@@ -49,11 +55,11 @@ const NewsItem = () => {
         </button>
       </div>
 
-      {/* New Movie Form */}
+      {/* New Product Form */}
       <div className="addMovieForm">
         <input
           type="text"
-          placeholder="Movie Name"
+          placeholder="Product Name"
           value={newMovie.name}
           onChange={(e) => setNewMovie({ ...newMovie, name: e.target.value })}
         />
@@ -76,7 +82,7 @@ const NewsItem = () => {
           onChange={(e) => setNewMovie({ ...newMovie, thumbnailImage: e.target.value })}
         />
         <button type="button" className="btn btn-primary" onClick={handleAddMovie}>
-          Add Movie
+          Add Product
         </button>
       </div>
 
@@ -93,6 +99,7 @@ const NewsItem = () => {
                     <a href={news.thumbnailImage}>
                       <button type="button" className="btn btn-success">Read More</button>
                     </a>
+                    <button type="button" className="btn btn-danger" onClick={() => handleDeleteMovie(news.id)}>Delete</button>
                   </div>
                 </div>
               </div>

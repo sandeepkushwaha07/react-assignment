@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const Movie = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [newMovie, setNewMovie] = useState({ id: "", movie: "", image: "", imdb_url: "" });
+  const [newMovie, setNewMovie] = useState({ id: "", movie: "", image: "", thumbnailImage: "" });
   const [reverseOrder, setReverseOrder] = useState(false);
   const [error, setError] = useState(null);
 
@@ -14,7 +14,7 @@ const Movie = () => {
         throw new Error('Failed to fetch movies');
       }
       const moviedata = await res.json();
-      setData(moviedata); // assuming the data structure is an array of movies
+      setData(moviedata);
       localStorage.setItem("movies", JSON.stringify(moviedata));
     } catch (err) {
       console.error("Error fetching movies:", err);
@@ -42,10 +42,21 @@ const Movie = () => {
   };
 
   const handleAddMovie = () => {
-    const updatedData = [newMovie, ...data]; 
+    if (!newMovie.id || !newMovie.movie || !newMovie.image || !newMovie.thumbnailImage) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    if (data.find(movie => movie.id === newMovie.id)) {
+      setError("Movie ID already exists.");
+      return;
+    }
+
+    const updatedData = [newMovie, ...data];
     setData(updatedData);
     localStorage.setItem("movies", JSON.stringify(updatedData));
-    setNewMovie({ id: "", movie: "", image: "", imdb_url: "" });
+    setNewMovie({ id: "", movie: "", image: "", thumbnailImage: "" });
+    setError(null); // Clear any previous error
   };
 
   const handleDeleteMovie = (id) => {
@@ -60,7 +71,7 @@ const Movie = () => {
 
   return (
     <>
-      {error && <div>Error: {error}</div>}
+      {error && <div className="error-message">Error: {error}</div>}
       <div className="searchButton">
         <input
           type="text"
@@ -68,12 +79,9 @@ const Movie = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button type="button" className="btn btn-info">
-          Search
-        </button>
+        <button type="button" className="btn btn-info" onClick={() => setSearchQuery(searchQuery)}>Search</button>
       </div>
 
-      
       <div className="addMovieForm">
         <input
           type="text"
@@ -95,16 +103,12 @@ const Movie = () => {
         />
         <input
           type="text"
-          placeholder="IMDB URL"
-          value={newMovie.imdb_url}
-          onChange={(e) => setNewMovie({ ...newMovie, imdb_url: e.target.value })}
+          placeholder="Thumbnail URL"
+          value={newMovie.thumbnailImage}
+          onChange={(e) => setNewMovie({ ...newMovie, thumbnailImage: e.target.value })}
         />
-        <button type="button" className="btn btn-primary" onClick={handleAddMovie}>
-          Add Movie
-        </button>
+        <button type="button" className="btn btn-primary" onClick={handleAddMovie}>Add Movie</button>
       </div>
-      <br/>
-      <br/>
 
       <div className="reverseButton">
         <button type="button" className="btn btn-dark" onClick={handleReverseOrder}>
@@ -113,42 +117,33 @@ const Movie = () => {
       </div>
 
       <section className="mainSection">
-        <div className="gr1"></div>
-        <div className="gr2"></div>
-        <div className="gr3"></div>
-        <div className="headingName">
-          <h1>Movie Card</h1>
-          <p>Superhit Movie in 2024</p>
-        </div>
-        <div className="container">
-          <div className="row">
-            {filterMovies().map((movie) => (
-              <div className="col-sm-4" key={movie.id}>
-                <div className="movieCard">
-                  <div className="movieName">
-                    <img
-                      src={movie.image} // assuming the image URL is directly provided by the API
-                      alt={movie.movie}
-                    />
-                    <h2 style={{ fontSize: "16px" }}>Id: {movie.id} </h2>
-                    <h3 style={{ fontSize: "16px" }}>
-                      Movie Name: {movie.movie}
-                    </h3>
-                    <a href={movie.imdb_url}>
-                      <button type="button" className="btn btn-success">
-                        Download Movie
-                      </button>
-                    </a>
-                    <button type="button" className="btn btn-danger" onClick={() => handleDeleteMovie(movie.id)}>
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+  <div className="headingName">
+    <h1>Movie Card</h1>
+    <p>Superhit Movie in 2024</p>
+  </div>
+  <div className="container">
+    <div className="row">
+      {filterMovies().map((movie) => (
+        <div className="col-sm-4" key={movie.id}>
+          <div className="movieCard">
+            <div className="movieName">
+              {/* <img src={movie.image} alt={movie.movie} /> */}
+              <img src={movie.thumbnailImage} alt={`${movie.movie} thumbnail`} className="thumbnail-image" />
+              <h2 style={{ fontSize: "16px" }}>Id: {movie.id}</h2>
+              <h3 style={{ fontSize: "16px" }}>Movie Name: {movie.movie}</h3>
+             
+              <a href={movie.thumbnailImage} target="_blank" rel="noopener noreferrer">
+                <button type="button" className="btn btn-success">Download Movie</button>
+              </a>
+              <button type="button" className="btn btn-danger" onClick={() => handleDeleteMovie(movie.id)}>Delete</button>
+            </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
     </>
   );
 };
